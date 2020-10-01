@@ -1,0 +1,31 @@
+{
+  "name": "react-plate",
+  "version": "1.0.0",
+  "description": "React with hooks basic implementation",
+  "main": "app.js",
+  "scripts": {
+    "clean": "rm -rf dist/*",
+    "start": "parcel src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rm -rf dist/*",
+    "build": "parcel build src/index.html",
+    "postbuild": "workbox generateSW"
+  },
+  "keywords": [
+    "PWA",
+    "React",
+    "Recoil",
+    "Boiler-Plate"
+  ],
+  "author": "Abishek Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "recoil": "0.0.13"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "workbox-cli": "^5.1.3"
+  }
+}
