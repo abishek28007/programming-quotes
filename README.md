@@ -1,4 +1,4 @@
-# react-pwa-plate
+# programming-quotes
 
 Icons made by 
 <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a>,
