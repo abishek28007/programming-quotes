@@ -1,0 +1,37 @@
+.rating {
+  display: inline-block;
+  unicode-bidi: bidi-override;
+  font-size: 14px;
+  width: auto;
+  margin: 0;
+  position: relative;
+  padding: 0;
+}
+
+.rating-upper {
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+}
+
+.rating-lower {
+  overflow: hidden;
+  display: flex;
+  z-index: 0;
+}
+
+.rating .rating-hover {
+  visibility: hidden;
+  width: 30px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+.rating:hover .rating-hover {
+  visibility: visible;
+}
