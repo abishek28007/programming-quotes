@@ -1,0 +1,28 @@
+.quote-card{
+    min-height: fit-content;
+    max-width: 90vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 5px;
+    padding: 4px;
+    display: flex;
+    flex-grow: 5;
+    flex-direction: column;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    .qoute{
+        font-size: 10vw;
+    }
+    .info{
+        display: flex;
+        padding: 10px 5px 5px 5px;
+    }
+    .author{
+        color: red;
+        font-size: 5vw;
+    }
+    .rating-pos{
+        color:green;
+        font-size: 5vw;
+        margin-left: auto;
+    }
+}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>Parcel</title>
+    <meta charset="utf-8">
     <link rel="shortcut icon" href="/public/logo192.png" />
     <link rel="apple-touch-icon" href="/public/logo192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,8 +19,9 @@
         const sw = "service-worker.js"; // it is needed because parcel will not recognize this as a file and not precess in its manner
 
         navigator.serviceWorker
-            .register(sw)
+            .register(`${window.location.origin}/${sw}`)
             .then(registration => {
+                console.log("Content is cached for offline use.");
                 registration.onupdatefound = () => {
                     const installingWorker = registration.installing;
                     if (installingWorker == null) {
@@ -41,6 +43,7 @@
             })
             .catch(error => {
                 console.error("Error during service worker registration:", error);
+                alert(error)
             });
     </script>
 </body>

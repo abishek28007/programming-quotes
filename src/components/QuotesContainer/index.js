@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState, useRef } from "react";
-import './style.scss';
+import { useHistory } from 'react-router-dom'
 
+import './style.scss';
 import Rating from '../Rating';
 const url = 'https://programming-quotes-api.herokuapp.com/quotes/page/'
 /**
@@ -32,21 +33,41 @@ function fetchQuotes(page) {
         })
         .catch((err) => {
             console.log(err)
+            return []
         });
 }
 
-const ProgrammingQuotes = (props) => {
-    let prevY = 0;
+const QuotesContainer = (props) => {
     const [quotes, setQuotes] = useState([]);
     const [page, setPage] = useState(1);
     const cardsRef = useRef(null);
+    const history = useHistory();
 
     const callback = (entities) => {
-        const y = entities[0].boundingClientRect.y;
-        if (prevY > y) {
-            setPage(page+1);
+        if (entities[0].isIntersecting) {
+            setPage(page + 1);
         }
-        prevY = y;
+    }
+
+    const cardWidget = (quote, index) => {
+        return <div className='card'
+            key={index}
+            ref={cardsRef}
+            onClick={() => {
+                history.push(`/quote/${quote.id}`, quote);
+            }}>
+            <div className='quote'>
+                {index + 1}. {quote.en}
+            </div>
+            <div className='info'>
+                <div className='author'>
+                    {quote.author}
+                </div>
+                {quote.rating && <div className='rating-pos'>
+                    <Rating value={quote.rating} />
+                </div>}
+            </div>
+        </div>
     }
 
     useEffect(() => {
@@ -64,22 +85,8 @@ const ProgrammingQuotes = (props) => {
 
     return (
         <div className='cards'>
-            {quotes.map((quote, index) => {
-                return <div className='card' key={index} ref={cardsRef}>
-                    <div className='quote'>
-                        {index}. {quote.en}
-                    </div>
-                    <div className='info'>
-                        <div className='author'>
-                            {quote.author}
-                        </div>
-                        {quote.rating && <div className='rating-pos'>
-                            <Rating value={quote.rating} />
-                        </div>}
-                    </div>
-                </div>
-            })}
+            {quotes.map(cardWidget)}
         </div>
     );
 }
-export default memo(ProgrammingQuotes);
+export default memo(QuotesContainer);
