@@ -1,0 +1,10 @@
+.header{
+    background-color: #6cf395;
+    padding: 5vw;
+}
+
+@media (min-width: 600px){
+    .header{
+        padding: 1vw;
+    }
+}

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 import './style.scss';
 import Rating from '../Rating';
+import Loader from '../Loader';
 const url = 'https://programming-quotes-api.herokuapp.com/quotes/page/'
 /**
  *   _______________________________
@@ -84,9 +85,12 @@ const QuotesContainer = (props) => {
     }, [page]);
 
     return (
-        <div className='cards'>
-            {quotes.map(cardWidget)}
-        </div>
+        <>
+            {quotes.length == 0 && <Loader />}
+            <div className='cards'>
+                {quotes.map(cardWidget)}
+            </div>
+        </>
     );
 }
 export default memo(QuotesContainer);
