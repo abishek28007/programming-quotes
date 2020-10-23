@@ -1,14 +1,18 @@
 import React, { memo, useEffect } from "react";
+import { useRecoilValue } from 'recoil';
 
 import Rating from '../Rating';
+import { quotesListState } from '../../store/atoms';
 import './style.scss';
 
 const Quote = (props) => {
-    // const { match: { params } } = props;
-    // const { id } = params;
-    // useEffect(()=>{
-        //     console.log(id)
-        // },[])
+    const { match: { params } } = props;
+    const { id } = params;
+    const quotes = useRecoilValue(quotesListState);
+    useEffect(() => {
+        console.log(quotes.filter((q)=>(q.id==id)));
+        console.log(quotes);
+    }, [])
     const quote = props.location.state;
 
     return quote && <div className='qoute-container'>

@@ -1,26 +1,12 @@
 import React, { memo, useEffect, useState, useRef } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import './style.scss';
 import Rating from '../Rating';
 import Loader from '../Loader';
+import { quotesListState, loadedPagesState } from '../../store/atoms';
 const url = 'https://programming-quotes-api.herokuapp.com/quotes/page/'
-/**
- *   _______________________________
-    |                               |
-    |                               |
-    |                               |
-    |_______________________________|
-*/
-
-// {
-//     _id: "5a6ce86e2af929789500e7e4",
-//     sr: "Računarska nauka se tiče računara koliko i astronomija teleskopa.",
-//     en: "Computer Science is no more about computers than astronomy is about telescopes.",
-//     author: "Edsger W. Dijkstra",
-//     rating: 3.5,
-//     id: "5a6ce86e2af929789500e7e4"
-// }
 const options = {
     root: null,
     rootMargin: "0px",
@@ -39,16 +25,42 @@ function fetchQuotes(page) {
 }
 
 const QuotesContainer = (props) => {
-    const [quotes, setQuotes] = useState([]);
+    const [quotes, setQuotes] = useRecoilState(quotesListState);
+    const [loadedPages, setloadedPages] = useRecoilState(loadedPagesState);
     const [page, setPage] = useState(1);
     const cardsRef = useRef(null);
     const history = useHistory();
 
     const callback = (entities) => {
         if (entities[0].isIntersecting) {
-            setPage(page + 1);
+            setPage(loadedPages[loadedPages.length - 1] + 1);
         }
     }
+
+    useEffect(() => {
+        console.log(new Error().stack);
+        console.log(loadedPages, page);
+        if (!loadedPages.includes(page)) {
+            fetchQuotes(page)
+                .then((qs) => {
+                    setQuotes((quotes) => [...quotes, ...qs]);
+                    setloadedPages((pages) => [...pages, page]);
+                });
+        }
+    }, [page]);
+
+    useEffect(() => {
+        let observer;
+        if (cardsRef.current) {
+            observer = new IntersectionObserver(callback, options);
+            observer.observe(cardsRef.current);
+        }
+        return () => {
+            if(observer){
+                observer.disconnect()
+            }
+        }
+    }, [quotes]);
 
     const cardWidget = (quote, index) => {
         return <div className='card'
@@ -70,19 +82,6 @@ const QuotesContainer = (props) => {
             </div>
         </div>
     }
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(callback, options);
-        fetchQuotes(page)
-            .then((qs) => {
-                setQuotes([...quotes, ...qs]);
-                if (cardsRef.current)
-                    observer.observe(cardsRef.current);
-            });
-        return () => {
-            observer.disconnect()
-        }
-    }, [page]);
 
     return (
         <>
