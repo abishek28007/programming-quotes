@@ -1,5 +1,7 @@
 .cards{
-    margin: 8px;
+    margin-left: 8px;
+    padding-top: 10vh;
+    padding-bottom: 6vh;
     display: flex;
     flex-flow: row wrap;
     align-content: stretch;
@@ -42,6 +44,8 @@
         height: 12vh;
     }
     .cards{
+        padding-top: 7vh;
         margin: 0 0 0 12vw;
+        padding-bottom: 3vh;
     }
 }

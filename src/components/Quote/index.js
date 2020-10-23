@@ -11,17 +11,19 @@ const Quote = (props) => {
         // },[])
     const quote = props.location.state;
 
-    return quote && <div className='quote-card'>
-        <div className='info'>
-            <div className='author'>
-                {quote.author}
+    return quote && <div className='qoute-container'>
+        <div className='quote-card'>
+            <div className='info'>
+                <div className='author'>
+                    {quote.author}
+                </div>
+                {quote.rating && <div className='rating-pos'>
+                    <Rating value={quote.rating} />
+                </div>}
             </div>
-            {quote.rating && <div className='rating-pos'>
-                <Rating value={quote.rating} />
-            </div>}
-        </div>
-        <div className='qoute'>
-            {quote.en}
+            <div className='qoute'>
+                {quote.en}
+            </div>
         </div>
     </div>
 }

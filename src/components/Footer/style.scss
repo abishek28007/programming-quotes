@@ -1,0 +1,13 @@
+.footer{
+    bottom: 0;
+    padding: 2vw;
+    width: 100vw;
+    position: fixed;
+    background-color: #c6d3ca;
+}
+
+@media (min-width: 600px){
+    .footer{
+        padding: .25vw;
+    }
+}
