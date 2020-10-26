@@ -38,8 +38,6 @@ const QuotesContainer = (props) => {
     }
 
     useEffect(() => {
-        console.log(new Error().stack);
-        console.log(loadedPages, page);
         if (!loadedPages.includes(page)) {
             fetchQuotes(page)
                 .then((qs) => {

@@ -1,19 +1,36 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { useRecoilValue } from 'recoil';
 
 import Rating from '../Rating';
 import { quotesListState } from '../../store/atoms';
 import './style.scss';
 
+const url = 'https://programming-quotes-api.herokuapp.com/quotes/id/'
+
 const Quote = (props) => {
     const { match: { params } } = props;
     const { id } = params;
     const quotes = useRecoilValue(quotesListState);
+    const [quote, setQuote] = useState();
+
     useEffect(() => {
-        console.log(quotes.filter((q)=>(q.id==id)));
-        console.log(quotes);
-    }, [])
-    const quote = props.location.state;
+        if (props.location.state) {
+            setQuote(props.location.state);
+        } else if (quotes && quotes.length && quotes.filter((q) => (q.id == id))[0]) {
+            setQuote(quotes.filter((q) => (q.id == id))[0])
+        } else {
+            fetch(`${url}${id}`)
+                .then((res) => {
+                    return res.json();
+                })
+                .then((qs) => {
+                    setQuote(qs);
+                })
+                .catch((err) => {
+                    console.log(err)
+                });
+        }
+    }, []);
 
     return quote && <div className='qoute-container'>
         <div className='quote-card'>
