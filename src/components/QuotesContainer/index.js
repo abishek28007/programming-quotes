@@ -6,7 +6,7 @@ import './style.scss';
 import Rating from '../Rating';
 import Loader from '../Loader';
 import { quotesListState, loadedPagesState } from '../../store/atoms';
-const url = 'https://programming-quotes-api.herokuapp.com/quotes/page/'
+const url = 'https://programming-quotes-api.herokuapp.com/Quotes?count='
 const options = {
     root: null,
     rootMargin: "0px",

@@ -5,7 +5,7 @@ import Rating from '../Rating';
 import { quotesListState } from '../../store/atoms';
 import './style.scss';
 
-const url = 'https://programming-quotes-api.herokuapp.com/quotes/id/'
+const url = 'https://programming-quotes-api.herokuapp.com/Quotes/'
 
 const Quote = (props) => {
     const { match: { params } } = props;

@@ -1,4 +1,6 @@
 # programming-quotes
+<img src="/screenshot.png" width="240px" alt="Screenshot">
+This uses https://programming-quotes-api.herokuapp.com
 
 Icons made by 
 <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a>,
